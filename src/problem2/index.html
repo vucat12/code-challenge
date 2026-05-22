@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f1e8">
+  <title>Atlas Swap</title>
+  <link href="/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="shell">
+    <section class="market-panel" aria-label="Market overview">
+      <div>
+        <p class="eyebrow">Best route</p>
+        <h1>Swap tokens with a quote that feels readable before you commit.</h1>
+      </div>
+
+      <div class="ticker-grid" id="ticker-grid" aria-label="Featured token prices"></div>
+
+      <div class="liquidity-band">
+        <div>
+          <span>Total liquidity</span>
+          <strong>$128.4M</strong>
+        </div>
+        <div>
+          <span>Avg. settlement</span>
+          <strong>14 sec</strong>
+        </div>
+        <div>
+          <span>Networks</span>
+          <strong>8</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="swap-card" aria-label="Currency swap form">
+      <header class="swap-header">
+        <div>
+          <p class="eyebrow">Atlas Swap</p>
+          <h2>Exchange</h2>
+        </div>
+        <div class="status-pill">
+          <span class="pulse"></span>
+          <span id="price-source">Loading prices</span>
+        </div>
+      </header>
+
+      <form id="swap-form" novalidate>
+        <div class="field-card" data-field="from">
+          <div class="field-topline">
+            <label for="from-amount">You pay</label>
+            <button class="ghost-button" type="button" id="max-button">Max</button>
+          </div>
+          <div class="amount-row">
+            <input id="from-amount" name="fromAmount" inputmode="decimal" autocomplete="off" placeholder="0.00">
+            <button class="token-button" type="button" id="from-token-button" aria-haspopup="dialog"></button>
+          </div>
+          <div class="field-meta">
+            <span id="from-fiat">$0.00</span>
+            <span id="from-balance"></span>
+          </div>
+        </div>
+
+        <div class="switch-wrap">
+          <button class="switch-button" type="button" id="switch-button" aria-label="Switch currencies">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 7h11l-3-3m3 3-3 3M17 17H6l3 3m-3-3 3-3" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="field-card" data-field="to">
+          <div class="field-topline">
+            <label for="to-amount">You receive</label>
+            <span class="read-only">Estimated</span>
+          </div>
+          <div class="amount-row">
+            <input id="to-amount" name="toAmount" readonly placeholder="0.00">
+            <button class="token-button" type="button" id="to-token-button" aria-haspopup="dialog"></button>
+          </div>
+          <div class="field-meta">
+            <span id="to-fiat">$0.00</span>
+            <span id="to-balance"></span>
+          </div>
+        </div>
+
+        <p class="form-error" id="form-error" role="alert"></p>
+
+        <div class="quote-panel" aria-label="Quote details">
+          <div>
+            <span>Rate</span>
+            <strong id="quote-rate">-</strong>
+          </div>
+          <div>
+            <span>Price impact</span>
+            <strong id="price-impact">-</strong>
+          </div>
+          <div>
+            <span>Network fee</span>
+            <strong id="network-fee">-</strong>
+          </div>
+          <div>
+            <span>Minimum received</span>
+            <strong id="minimum-received">-</strong>
+          </div>
+        </div>
+
+        <div class="settings-row" aria-label="Slippage tolerance">
+          <span>Slippage</span>
+          <div class="segmented" id="slippage-options">
+            <button type="button" data-slippage="0.1">0.1%</button>
+            <button type="button" data-slippage="0.5" class="active">0.5%</button>
+            <button type="button" data-slippage="1">1%</button>
+          </div>
+        </div>
+
+        <button class="submit-button" type="submit" id="submit-button">Enter an amount</button>
+      </form>
+    </section>
+  </main>
+
+  <dialog class="token-dialog" id="token-dialog">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow">Select asset</p>
+        <h3>Choose a token</h3>
+      </div>
+      <button class="icon-button" type="button" id="close-dialog" aria-label="Close token selector">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <input class="search-input" id="token-search" type="search" placeholder="Search by symbol or name">
+    <div class="token-list" id="token-list"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="/script.js"></script>
+</body>
+
+</html>
